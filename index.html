@@ -3,24 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
     <title>Referencer</title>
   </head>
   <body>
-    <label for="firstName">First Name</label>
-    <input type="text" id="firstName" />
-    <label for="lastName">Last Name</label>
-    <input type="text" id="lastName" />
-    <label for="title">Title</label>
-    <input type="text" id="title" />
-    <label for="URL">URL</label>
-    <input type="text" id="URL" />
-    <label for="date">Date</label>
-    <input type="text" id="date" />
-    <label for="publisher">Publisher</label>
-    <input type="text" id="publisher" />
-    <button id="button">Generate Reference</button>
-    <p id="inTextReference"></p>
-    <p id="bibliographyReference"></p>
+    <h1>Harvard Reference Generator</h1>
+    <div class="form">
+      <label for="firstName">First Name: </label>
+      <input type="text" id="firstName" placeholder="John" />
+      <label for="lastName">Last Name: </label>
+      <input type="text" id="lastName" placeholder="Doe" />
+      <label for="title">Title: </label>
+      <input type="text" id="title" placeholder="a Website" />
+      <label for="URL">URL: </label>
+      <input type="text" id="URL" placeholder="www." />
+      <label for="year">Year: </label>
+      <input type="text" id="year" placeholder="0000" />
+      <label for="publisher">Publisher: </label>
+      <input type="text" id="publisher" placeholder="Forbes" />
+      <button id="button">Generate Reference</button>
+      <p id="inTextReference"></p>
+      <p id="bibliographyReference"></p>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
