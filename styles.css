@@ -1,20 +1,57 @@
-body h1 {
+.title {
+  margin-bottom: 30px;
   text-align: center;
+}
+
+.title h1 {
+  font-weight: 1;
+}
+
+.title p {
+  font-style: italic;
 }
 
 .form {
   align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  border: solid 1px black;
+  gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin: 0 300px;
+  padding: 20px;
 }
 
-input {
-  margin-bottom: 20px;
-  width: 500px;
+.sub_heading {
+  grid-column: 1 / 5;
+  margin: 10px 0 0 0;
+  font-style: italic;
+  font-size: 18px;
 }
 
-.output {
+.contribute_button {
+  grid-column: 1 / 5;
+  width: 200px;
+}
+
+.full_length_input {
+  grid-column: 2 / 5;
+}
+
+.quote_input {
+}
+
+.generate_button {
   display: flex;
   justify-content: center;
+}
+
+.generate_button button {
+  width: 200px;
+  margin: 30px;
+  align-items: center;
+}
+
+.reference_lists {
+  border: solid 1px black;
+  margin: 0 300px;
 }

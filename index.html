@@ -7,24 +7,45 @@
     <title>Referencer</title>
   </head>
   <body>
-    <h1>Harvard Reference Generator</h1>
-    <div class="form">
-      <label for="firstName">First Name: </label>
-      <input type="text" id="firstName" placeholder="John" />
-      <label for="lastName">Last Name: </label>
-      <input type="text" id="lastName" placeholder="Doe" />
-      <label for="title">Title: </label>
-      <input type="text" id="title" placeholder="a Website" />
-      <label for="URL">URL: </label>
-      <input type="text" id="URL" placeholder="www." />
-      <label for="year">Year: </label>
-      <input type="text" id="year" placeholder="0000" />
-      <label for="publisher">Publisher: </label>
-      <input type="text" id="publisher" placeholder="Forbes" />
-      <button id="button">Generate Reference</button>
-      <p id="inTextReference"></p>
-      <p id="bibliographyReference"></p>
+    <div class="title">
+      <h1>Harvard Reference Generator</h1>
+      <p>
+        **This reference generator only works for online sources with a single
+        contributor**
+      </p>
     </div>
+    <div class="form">
+      <p class="sub_heading">Contributors</p>
+      <label for="firstName">First Name(s): </label>
+      <input type="text" id="firstName" />
+      <label for="lastName">Last Name(s): </label>
+      <input type="text" id="lastName" />
+      <button class="contribute_button">Add another contributor</button>
+      <p class="sub_heading">Page/Article</p>
+      <label for="title">Title: </label>
+      <input class="full_length_input" type="text" id="title" />
+      <label for="URL">URL: </label>
+      <input class="full_length_input" type="text" id="URL" />
+      <label for="year">Year Published: </label>
+      <input type="text" id="year" />
+      <label for="publisher">Publisher/Website Name: </label>
+      <input type="text" id="publisher" />
+      <p class="sub_heading">Annotation</p>
+      <label for="quote">Quote: </label>
+      <input class="full_length_input quote_input" type="text" id="quote" />
+    </div>
+    <div class="generate_button">
+      <button id="button">Generate Reference</button>
+    </div>
+    <div class="reference_lists">
+      <ul id="inTextReferenceList">
+        In-Text Citation:
+      </ul>
+      <ul id="bibliographyReferenceList">
+        Bibliography Citation:
+      </ul>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
