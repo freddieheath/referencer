@@ -6,8 +6,10 @@
 // Keep list after refresh?
 // Access Date
 
+const form = document.getElementById("form");
 const lastName = document.getElementById("lastName");
 const firstName = document.getElementById("firstName");
+const contributeButton = document.getElementById("contributeButton");
 const title = document.getElementById("title");
 const url = document.getElementById("URL");
 const year = document.getElementById("year");
@@ -17,7 +19,32 @@ const button = document.getElementById("button");
 const textRefList = document.getElementById("inTextReferenceList");
 const bibRefList = document.getElementById("bibliographyReferenceList");
 
-function addContributor() {}
+function addContributor() {
+  const newContributor = document.createElement("input");
+  newContributor.className = "new_contributor";
+  form.insertBefore(newContributor, contributeButton);
+}
+
+function addLabel(name) {
+  const newLabel = document.createElement("label");
+
+  if (name === "first") {
+    newLabel.innerHTML = "First Name(s): ";
+  }
+
+  if (name === "last") {
+    newLabel.innerHTML = "Last Name(s): ";
+  }
+
+  form.insertBefore(newLabel, contributeButton);
+}
+
+contributeButton.addEventListener("click", () => {
+  addLabel("first");
+  addContributor();
+  addLabel("last");
+  addContributor();
+});
 
 function printBibRef() {
   const citationComponents = [];
@@ -52,7 +79,6 @@ function printBibRef() {
 
   bibRefList.innerHTML = citationComponents.join("") + ".";
 }
-
 function printTextRef() {
   textRefList.innerHTML =
     "In-Text Citation: " + "(" + lastName.value + ", " + year.value + ")";
