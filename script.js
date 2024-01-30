@@ -1,10 +1,12 @@
 // 'Today' date option
 // Multiple contributors
+// Different label for First and Last Name`
 // Multiple references (append a list)
 // Clear list
 // Alphabetice list
 // Keep list after refresh?
 // Access Date
+// if (newLabel.value) bibRefList.innerHTML = citationComponents.join("") + ".";
 
 const form = document.getElementById("form");
 const lastName = document.getElementById("lastName");
@@ -19,10 +21,19 @@ const button = document.getElementById("button");
 const textRefList = document.getElementById("inTextReferenceList");
 const bibRefList = document.getElementById("bibliographyReferenceList");
 
-function addContributor() {
-  const newContributor = document.createElement("input");
-  newContributor.className = "new_contributor";
-  form.insertBefore(newContributor, contributeButton);
+function addContributor(name) {
+  const newFirstName = document.createElement("input");
+  const newLastName = document.createElement("input");
+
+  if (name === "first") {
+    newFirstName.setAttribute("id", "newFirstName");
+    form.insertBefore(newFirstName, contributeButton);
+  }
+
+  if (name === "last") {
+    newLastName.setAttribute("id", "newLastName");
+    form.insertBefore(newLastName, contributeButton);
+  }
 }
 
 function addLabel(name) {
@@ -41,9 +52,9 @@ function addLabel(name) {
 
 contributeButton.addEventListener("click", () => {
   addLabel("first");
-  addContributor();
+  addContributor("first");
   addLabel("last");
-  addContributor();
+  addContributor("last");
 });
 
 function printBibRef() {
@@ -55,6 +66,10 @@ function printBibRef() {
 
   if (firstName.value) {
     citationComponents.push(firstName.value[0] + ". ");
+  }
+
+  if (newContributorValue) {
+    citationComponents.push(newContributorValue + ". ");
   }
 
   if (year.value) {
@@ -70,14 +85,14 @@ function printBibRef() {
   }
 
   if (url.value) {
-    citationComponents.push(" Available at: " + url.value + ". ");
+    citationComponents.push(" Available at: " + url.value + ".");
   }
 
   if (quote.value) {
-    citationComponents.push(' "' + "<i>" + quote.value + "</i>" + '"');
+    citationComponents.push(' "' + "<i>" + quote.value + "</i>" + '"' + ". ");
   }
 
-  bibRefList.innerHTML = citationComponents.join("") + ".";
+  bibRefList.innerHTML = citationComponents.join("");
 }
 function printTextRef() {
   textRefList.innerHTML =
