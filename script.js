@@ -1,12 +1,8 @@
 // 'Today' date option
-// Multiple contributors
-// Different label for First and Last Name`
 // Multiple references (append a list)
 // Clear list
 // Alphabetice list
-// Keep list after refresh?
 // Access Date
-// if (newLabel.value) bibRefList.innerHTML = citationComponents.join("") + ".";
 
 const form = document.getElementById("form");
 const lastName = document.getElementById("lastName");
@@ -20,40 +16,33 @@ const quote = document.getElementById("quote");
 const button = document.getElementById("button");
 const textRefList = document.getElementById("inTextReferenceList");
 const bibRefList = document.getElementById("bibliographyReferenceList");
+let newFirstName;
+let newLastName;
 
 function addContributor(name) {
-  const newFirstName = document.createElement("input");
-  const newLastName = document.createElement("input");
-
-  if (name === "first") {
-    newFirstName.setAttribute("id", "newFirstName");
-    form.insertBefore(newFirstName, contributeButton);
-  }
-
-  if (name === "last") {
-    newLastName.setAttribute("id", "newLastName");
-    form.insertBefore(newLastName, contributeButton);
-  }
-}
-
-function addLabel(name) {
+  const newInput = document.createElement("input");
   const newLabel = document.createElement("label");
 
   if (name === "first") {
+    newInput.setAttribute("id", "newFirstName");
     newLabel.innerHTML = "First Name(s): ";
+    newFirstName = { input: newInput, label: newLabel };
   }
 
   if (name === "last") {
+    newInput.setAttribute("id", "newLastName");
     newLabel.innerHTML = "Last Name(s): ";
+    newLastName = { input: newInput, label: newLabel };
   }
 
   form.insertBefore(newLabel, contributeButton);
+  form.insertBefore(newInput, contributeButton);
+
+  return { input: newInput, label: newLabel };
 }
 
 contributeButton.addEventListener("click", () => {
-  addLabel("first");
   addContributor("first");
-  addLabel("last");
   addContributor("last");
 });
 
@@ -68,8 +57,12 @@ function printBibRef() {
     citationComponents.push(firstName.value[0] + ". ");
   }
 
-  if (newContributorValue) {
-    citationComponents.push(newContributorValue + ". ");
+  if (newLastName && newLastName.input && newLastName.input.value) {
+    citationComponents.push(newLastName.input.value + ", ");
+  }
+
+  if (newFirstName && newFirstName.input && newFirstName.input.value) {
+    citationComponents.push(newFirstName.input.value[0] + ". ");
   }
 
   if (year.value) {
