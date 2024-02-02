@@ -3,6 +3,7 @@
 // Clear list
 // Alphabetice list
 // Access Date
+// Fix text reference
 
 const form = document.getElementById("form");
 const lastName = document.getElementById("lastName");
@@ -18,27 +19,25 @@ const textRefList = document.getElementById("inTextReferenceList");
 const bibRefList = document.getElementById("bibliographyReferenceList");
 let newFirstName;
 let newLastName;
+let lastNameCounter = 1;
+let firstNameCounter = 1;
 
 function addContributor(name) {
   const newInput = document.createElement("input");
   const newLabel = document.createElement("label");
 
   if (name === "first") {
-    newInput.setAttribute("id", "newFirstName");
+    newInput.setAttribute("id", "newFirstName" + firstNameCounter++);
     newLabel.innerHTML = "First Name(s): ";
-    newFirstName = { input: newInput, label: newLabel };
   }
 
   if (name === "last") {
-    newInput.setAttribute("id", "newLastName");
+    newInput.setAttribute("id", "newLastName" + lastNameCounter++);
     newLabel.innerHTML = "Last Name(s): ";
-    newLastName = { input: newInput, label: newLabel };
   }
 
   form.insertBefore(newLabel, contributeButton);
   form.insertBefore(newInput, contributeButton);
-
-  return { input: newInput, label: newLabel };
 }
 
 contributeButton.addEventListener("click", () => {
@@ -55,14 +54,6 @@ function printBibRef() {
 
   if (firstName.value) {
     citationComponents.push(firstName.value[0] + ". ");
-  }
-
-  if (newLastName && newLastName.input && newLastName.input.value) {
-    citationComponents.push(newLastName.input.value + ", ");
-  }
-
-  if (newFirstName && newFirstName.input && newFirstName.input.value) {
-    citationComponents.push(newFirstName.input.value[0] + ". ");
   }
 
   if (year.value) {

@@ -37,9 +37,6 @@
   grid-column: 2 / 5;
 }
 
-.quote_input {
-}
-
 .generate_button {
   display: flex;
   justify-content: center;
