@@ -17,27 +17,23 @@ const quote = document.getElementById("quote");
 const button = document.getElementById("button");
 const textRefList = document.getElementById("inTextReferenceList");
 const bibRefList = document.getElementById("bibliographyReferenceList");
-let newFirstName;
-let newLastName;
-let lastNameCounter = 1;
-let firstNameCounter = 1;
+const contributors = [];
 
 function addContributor(name) {
   const newInput = document.createElement("input");
   const newLabel = document.createElement("label");
 
   if (name === "first") {
-    newInput.setAttribute("id", "newFirstName" + firstNameCounter++);
     newLabel.innerHTML = "First Name(s): ";
   }
 
   if (name === "last") {
-    newInput.setAttribute("id", "newLastName" + lastNameCounter++);
     newLabel.innerHTML = "Last Name(s): ";
   }
 
   form.insertBefore(newLabel, contributeButton);
   form.insertBefore(newInput, contributeButton);
+  contributors.push({ label: newLabel, input: newInput });
 }
 
 contributeButton.addEventListener("click", () => {
@@ -55,6 +51,12 @@ function printBibRef() {
   if (firstName.value) {
     citationComponents.push(firstName.value[0] + ". ");
   }
+
+  contributors.forEach((contributor) => {
+    if (contributor.input && contributor.input.value) {
+      citationComponents.push(contributor.input.value);
+    }
+  });
 
   if (year.value) {
     citationComponents.push("(" + year.value + "). ");
@@ -78,6 +80,7 @@ function printBibRef() {
 
   bibRefList.innerHTML = citationComponents.join("");
 }
+
 function printTextRef() {
   textRefList.innerHTML =
     "In-Text Citation: " + "(" + lastName.value + ", " + year.value + ")";
