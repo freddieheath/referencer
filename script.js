@@ -1,10 +1,4 @@
-// 'Today' date option
-// Multiple references (append a list)
-// Clear list
-// Alphabetice list
-// Access Date
-// Fix text reference
-
+// Declare all elements of the DOM as variables
 const form = document.getElementById("form");
 const lastName = document.getElementById("lastName");
 const firstName = document.getElementById("firstName");
@@ -17,39 +11,43 @@ const quote = document.getElementById("quote");
 const button = document.getElementById("button");
 const textRefList = document.getElementById("inTextReferenceList");
 const bibRefList = document.getElementById("bibliographyReferenceList");
+
+// Create extra contributor input field and label
 const contributors = [];
 
 function addContributor(name) {
-  const newInput = document.createElement("input");
   const newLabel = document.createElement("label");
+  const input = document.createElement("input");
+
+  form.insertBefore(newLabel, contributeButton);
 
   if (name === "first") {
     newLabel.innerHTML = "First Name(s): ";
+    form.insertBefore(input, contributeButton);
   }
-
   if (name === "last") {
     newLabel.innerHTML = "Last Name(s): ";
+    form.insertBefore(input, contributeButton);
   }
-
-  form.insertBefore(newLabel, contributeButton);
-  form.insertBefore(newInput, contributeButton);
-  contributors.push({ label: newLabel, input: newInput });
+  contributors.push({ input: input });
 }
 
+// Add contributor buttons and labels
 contributeButton.addEventListener("click", () => {
   addContributor("first");
   addContributor("last");
 });
 
+// Get, format, and print values of fields into a bib. reference
 function printBibRef() {
   const citationComponents = [];
 
   if (lastName.value) {
-    citationComponents.push(lastName.value + ", ");
+    citationComponents.push(lastName.value) + ", ";
   }
 
   if (firstName.value) {
-    citationComponents.push(firstName.value[0] + ". ");
+    citationComponents.push(firstName.value + ". ");
   }
 
   contributors.forEach((contributor) => {
@@ -78,12 +76,29 @@ function printBibRef() {
     citationComponents.push(' "' + "<i>" + quote.value + "</i>" + '"' + ". ");
   }
 
-  bibRefList.innerHTML = citationComponents.join("");
+  bibRefList.innerHTML =
+    "Bibliography Citation: " + citationComponents.join("");
 }
 
+// Get, format, and print values of text references
 function printTextRef() {
-  textRefList.innerHTML =
-    "In-Text Citation: " + "(" + lastName.value + ", " + year.value + ")";
+  const bibComponents = [];
+
+  if (lastName.value) {
+    bibComponents.push("(" + lastName.value + ", ");
+  }
+
+  contributors.forEach((contributor) => {
+    if (contributor.input.value) {
+      bibComponents.push(contributor.input.value);
+    }
+  });
+
+  if (year.value) {
+    bibComponents.push(year.value + ")");
+  }
+
+  textRefList.innerHTML = "In-Text Citation: " + bibComponents.join("");
 }
 
 button.addEventListener("click", () => {
