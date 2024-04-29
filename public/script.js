@@ -1,3 +1,5 @@
+// Add bracket automatically to end of array
+
 // Declare all elements of the DOM as variables
 const form = document.getElementById("form");
 const lastName = document.getElementById("lastName");
@@ -14,6 +16,7 @@ const bibRefList = document.getElementById("bibliographyReferenceList");
 
 // Create extra contributor input field and label
 const contributors = [];
+const newContributors = contributors.map((item) => item * 2);
 
 function addContributor(name) {
   const newLabel = document.createElement("label");
@@ -21,15 +24,17 @@ function addContributor(name) {
 
   form.insertBefore(newLabel, contributeButton);
 
-  if (name === "first") {
-    newLabel.innerHTML = "First Name(s): ";
-    form.insertBefore(input, contributeButton);
-  }
   if (name === "last") {
     newLabel.innerHTML = "Last Name(s): ";
     form.insertBefore(input, contributeButton);
   }
-  contributors.push({ input: input });
+  if (name === "first") {
+    newLabel.innerHTML = "First Name(s): ";
+    form.insertBefore(input, contributeButton);
+  }
+  contributors.push({
+    input: input,
+  });
 }
 
 // Add contributor buttons and labels
@@ -43,33 +48,33 @@ function printBibRef() {
   const citationComponents = [];
 
   if (lastName.value) {
-    citationComponents.push(lastName.value) + ", ";
+    citationComponents.push(`(${lastName.value}, `);
   }
 
   if (firstName.value) {
-    citationComponents.push(firstName.value + ". ");
+    citationComponents.push(`${firstName.value[0]}. `);
   }
 
   contributors.forEach((contributor) => {
-    if (contributor.input && contributor.input.value) {
-      citationComponents.push(contributor.input.value);
+    if (contributor.input.value) {
+      citationComponents.push(contributor.input.value + ", ");
     }
   });
 
   if (year.value) {
-    citationComponents.push("(" + year.value + "). ");
+    citationComponents.push(`(${year.value}). `);
   }
 
   if (title.value) {
-    citationComponents.push("<i>" + title.value + "</i>" + ". [online] ");
+    citationComponents.push(`${title.value}. [online] `);
   }
 
   if (publisher.value) {
-    citationComponents.push(publisher.value);
+    citationComponents.push(`${publisher.value} `);
   }
 
   if (url.value) {
-    citationComponents.push(" Available at: " + url.value + ".");
+    citationComponents.push(`Available at: ${url.value}.`);
   }
 
   if (quote.value) {
@@ -85,7 +90,7 @@ function printTextRef() {
   const bibComponents = [];
 
   if (lastName.value) {
-    bibComponents.push("(" + lastName.value + ", ");
+    bibComponents.push(`(${lastName.value}, `);
   }
 
   contributors.forEach((contributor) => {
@@ -95,7 +100,7 @@ function printTextRef() {
   });
 
   if (year.value) {
-    bibComponents.push(year.value + ")");
+    bibComponents.push(`${year.value})`);
   }
 
   textRefList.innerHTML = "In-Text Citation: " + bibComponents.join("");
