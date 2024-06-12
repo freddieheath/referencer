@@ -1,7 +1,14 @@
+// Format the array
 // Add bracket automatically to end of array
+// If fields haven't been completed then don't allow submit]
+// & for two contributors and commas for more
+// DD MM YYYY Format of Date
+// Format the menu
+// Page Numbder
 
 // Declare all elements of the DOM as variables
 const form = document.getElementById("form");
+const labelSection = document.getElementById("labelSection");
 const lastName = document.getElementById("lastName");
 const firstName = document.getElementById("firstName");
 const contributeButton = document.getElementById("contributeButton");
@@ -18,48 +25,67 @@ const bibRefList = document.getElementById("bibliographyReferenceList");
 const contributors = [];
 const newContributors = contributors.map((item) => item * 2);
 
-function addContributor(name) {
-  const newLabel = document.createElement("label");
-  const input = document.createElement("input");
+function addContributor() {
+  const firstInput = document.createElement("input");
+  const lastInput = document.createElement("input");
+  firstInput.classList.add(
+    "border",
+    "border-gray-300",
+    "text-gray-900",
+    "text-sm",
+    "rounded-lg",
+    "p-2"
+  );
 
-  form.insertBefore(newLabel, contributeButton);
+  lastInput.classList.add(
+    "border",
+    "border-gray-300",
+    "text-gray-900",
+    "text-sm",
+    "rounded-lg",
+    "p-2"
+  );
 
-  if (name === "last") {
-    newLabel.innerHTML = "Last Name(s): ";
-    form.insertBefore(input, contributeButton);
-  }
-  if (name === "first") {
-    newLabel.innerHTML = "First Name(s): ";
-    form.insertBefore(input, contributeButton);
-  }
-  contributors.push({
-    input: input,
-  });
+  labelSection.appendChild(firstInput);
+  labelSection.appendChild(lastInput);
+  firstInput.placeholder = "First Name(s):";
+  lastInput.placeholder = "Last Names(s):";
+  return labelSection;
 }
 
 // Add contributor buttons and labels
 contributeButton.addEventListener("click", () => {
-  addContributor("first");
-  addContributor("last");
+  addContributor();
 });
+
+// Clear Forms
+function clearForm() {}
 
 // Get, format, and print values of fields into a bib. reference
 function printBibRef() {
   const citationComponents = [];
+  citationComponents.push("(");
 
   if (lastName.value) {
-    citationComponents.push(`(${lastName.value}, `);
+    citationComponents.push(`${lastName.value}, `);
   }
 
   if (firstName.value) {
     citationComponents.push(`${firstName.value[0]}. `);
   }
 
-  contributors.forEach((contributor) => {
-    if (contributor.input.value) {
-      citationComponents.push(contributor.input.value + ", ");
-    }
-  });
+  // contributors add to array
+
+  /* if (lastInput.value) {
+    contributors.push(`${lastInput.value}`);
+  }
+  if (firstInput.value) {
+    contributors.push(`${firstInput.value[0]}.`);
+  }
+
+  citationComponents.push(contributors);
+
+  */
 
   if (year.value) {
     citationComponents.push(`(${year.value}). `);
@@ -81,8 +107,9 @@ function printBibRef() {
     citationComponents.push(' "' + "<i>" + quote.value + "</i>" + '"' + ". ");
   }
 
-  bibRefList.innerHTML =
-    "Bibliography Citation: " + citationComponents.join("");
+  citationComponents.push(")");
+
+  bibRefList.innerHTML = citationComponents.join("");
 }
 
 // Get, format, and print values of text references
@@ -93,17 +120,11 @@ function printTextRef() {
     bibComponents.push(`(${lastName.value}, `);
   }
 
-  contributors.forEach((contributor) => {
-    if (contributor.input.value) {
-      bibComponents.push(contributor.input.value);
-    }
-  });
-
   if (year.value) {
     bibComponents.push(`${year.value})`);
   }
 
-  textRefList.innerHTML = "In-Text Citation: " + bibComponents.join("");
+  textRefList.innerHTML = bibComponents.join("");
 }
 
 button.addEventListener("click", () => {

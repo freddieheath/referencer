@@ -3,49 +3,81 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./output.css" />
     <title>Referencer</title>
   </head>
   <body>
-    <div class="title">
-      <h1>Harvard Reference Generator</h1>
-      <p>
-        **This reference generator only works for online sources with a maximum
-        of two contributors**
-      </p>
-    </div>
-    <div id="form" class="form">
-      <p class="sub_heading">Contributors</p>
-      <label for="firstName">First Name(s): </label>
-      <input type="text" id="firstName" />
-      <label for="lastName">Last Name(s): </label>
-      <input type="text" id="lastName" />
-      <button class="contribute_button" id="contributeButton">
-        Add another contributor
-      </button>
-      <p class="sub_heading">Page/Article</p>
-      <label for="title">Title: </label>
-      <input class="full_length_input" type="text" id="title" />
-      <label for="URL">URL: </label>
-      <input class="full_length_input" type="text" id="URL" />
-      <label for="year">Year Published: </label>
-      <input type="text" id="year" />
-      <label for="publisher">Publisher/Website Name: </label>
-      <input type="text" id="publisher" />
-      <p class="sub_heading">Annotation</p>
-      <label for="quote">Quote: </label>
-      <input class="full_length_input" type="text" id="quote" />
-    </div>
-    <div class="generate_button">
-      <button id="button">Generate Reference</button>
-    </div>
-    <div class="reference_lists">
-      <ul id="inTextReferenceList">
-        In-Text Citation:
-      </ul>
-      <ul id="bibliographyReferenceList">
-        Bibliography Citation:
-      </ul>
+    <div class="py-10">
+      <div class="text-center py-6">
+        <h1 class="text-2xl pb-2">Harvard Referencer</h1>
+        <p class="text-md">
+          **This referencer only works for online sources with a maximum of two
+          contributors**
+        </p>
+      </div>
+      <div id="form" class="flex-col mx-60 flex">
+        <div id="labelSection" class="py-6 flex flex-col gap-y-2">
+          <p class="sub_heading">Contributors</p>
+          <input
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+            type="text"
+            placeholder="First Name(s):"
+            id="firstName"
+          />
+          <input
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+            type="text"
+            placeholder="Last Name:"
+            id="lastName"
+          />
+        </div>
+        <button class="contribute_button text-left" id="contributeButton">
+          + Add another contributor
+        </button>
+        <div class="py-6 flex flex-col gap-y-2">
+          <p class="sub_heading">Page/Article</p>
+          <input
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+            placeholder="Title:"
+            type="text"
+            id="title"
+          />
+          <input
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+            placeholder="URL:"
+            type="text"
+            id="URL"
+          />
+          <input
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+            placeholder="Year Published:"
+            type="text"
+            id="year"
+          />
+          <input
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+            placeholder="Publisher:"
+            type="text"
+            id="publisher"
+          />
+        </div>
+        <div class="py-6 flex flex-col gap-y-2">
+          <p class="sub_heading">Annotation</p>
+          <input
+            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+            type="text"
+            id="quote"
+            placeholder="Quote:"
+          />
+        </div>
+        <div class="generate_button pb-6">
+          <button id="button">+ Generate Reference</button>
+        </div>
+        <div class="flex gap-x-3">
+          <h1 id="bibliographyReferenceList"></h1>
+          <h1 id="inTextReferenceList"></h1>
+        </div>
+      </div>
     </div>
 
     <script src="script.js"></script>
