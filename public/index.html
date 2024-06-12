@@ -15,23 +15,29 @@
           contributors**
         </p>
       </div>
-      <div id="form" class="flex-col mx-60 flex">
-        <div id="labelSection" class="py-6 flex flex-col gap-y-2">
-          <p class="sub_heading">Contributors</p>
-          <input
-            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
-            type="text"
-            placeholder="First Name(s):"
-            id="firstName"
-          />
-          <input
-            class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
-            type="text"
-            placeholder="Last Name:"
-            id="lastName"
-          />
+      <form id="form" class="flex-col mx-12 lg:mx-72 flex">
+        <p class="sub_heading">Contributors</p>
+        <div id="labelSection" class="gap-y-1 flex flex-col pb-6">
+          <div class="py-1 gap-x-2 flex gap-y-2">
+            <input
+              class="border w-full md:flex-1 border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+              type="text"
+              placeholder="First Name(s):"
+              id="firstName"
+            />
+            <input
+              class="border w-full md:flex-1 border-gray-300 text-gray-900 text-sm rounded-lg p-2"
+              type="text"
+              placeholder="Last Name:"
+              id="lastName"
+            />
+          </div>
         </div>
-        <button class="contribute_button text-left" id="contributeButton">
+        <button
+          type="button"
+          class="contribute_button text-left"
+          id="contributeButton"
+        >
           + Add another contributor
         </button>
         <div class="py-6 flex flex-col gap-y-2">
@@ -71,13 +77,13 @@
           />
         </div>
         <div class="generate_button pb-6">
-          <button id="button">+ Generate Reference</button>
+          <button type="button" id="button">+ Generate Reference</button>
         </div>
-        <div class="flex gap-x-3">
-          <h1 id="bibliographyReferenceList"></h1>
-          <h1 id="inTextReferenceList"></h1>
+        <div class="flex gap-x-2">
+          <ul id="bibliographyReferenceList"></ul>
+          <ul id="inTextReferenceList"></ul>
         </div>
-      </div>
+      </form>
     </div>
 
     <script src="script.js"></script>

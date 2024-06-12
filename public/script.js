@@ -26,14 +26,17 @@ const contributors = [];
 const newContributors = contributors.map((item) => item * 2);
 
 function addContributor() {
+  const newDiv = document.createElement("div");
   const firstInput = document.createElement("input");
   const lastInput = document.createElement("input");
+  newDiv.classList.add("gap-x-2", "flex", "gap-y-2");
   firstInput.classList.add(
     "border",
     "border-gray-300",
     "text-gray-900",
     "text-sm",
     "rounded-lg",
+    "flex-1",
     "p-2"
   );
 
@@ -43,13 +46,15 @@ function addContributor() {
     "text-gray-900",
     "text-sm",
     "rounded-lg",
+    "flex-1",
     "p-2"
   );
 
-  labelSection.appendChild(firstInput);
-  labelSection.appendChild(lastInput);
+  labelSection.appendChild(newDiv);
+  newDiv.appendChild(firstInput);
+  newDiv.appendChild(lastInput);
   firstInput.placeholder = "First Name(s):";
-  lastInput.placeholder = "Last Names(s):";
+  lastInput.placeholder = "Last Name:";
   return labelSection;
 }
 
@@ -96,7 +101,7 @@ function printBibRef() {
   }
 
   if (publisher.value) {
-    citationComponents.push(`${publisher.value} `);
+    citationComponents.push(`${publisher.value}. `);
   }
 
   if (url.value) {
@@ -108,23 +113,30 @@ function printBibRef() {
   }
 
   citationComponents.push(")");
-
-  bibRefList.innerHTML = citationComponents.join("");
+  const refList = document.createElement("li");
+  const ref = citationComponents.join("");
+  refList.innerHTML = ref;
+  bibRefList.appendChild(refList);
 }
 
 // Get, format, and print values of text references
 function printTextRef() {
   const bibComponents = [];
+  bibComponents.push("(");
 
   if (lastName.value) {
-    bibComponents.push(`(${lastName.value}, `);
+    bibComponents.push(`${lastName.value}, `);
   }
 
   if (year.value) {
-    bibComponents.push(`${year.value})`);
+    bibComponents.push(`${year.value}`);
   }
 
-  textRefList.innerHTML = bibComponents.join("");
+  bibComponents.push(")");
+  const refList = document.createElement("li");
+  const ref = bibComponents.join("");
+  refList.innerHTML = ref;
+  textRefList.appendChild(refList);
 }
 
 button.addEventListener("click", () => {
