@@ -1,10 +1,14 @@
 // Format the array
-// Add bracket automatically to end of array
 // If fields haven't been completed then don't allow submit]
+// Clear forms
 // & for two contributors and commas for more
 // DD MM YYYY Format of Date
 // Format the menu
-// Page Numbder
+// Page Number
+// Automatically order alphabetically
+// Red asterix on missing info
+// combine print functions
+// CRUD
 
 // Declare all elements of the DOM as variables
 const form = document.getElementById("form");
@@ -23,12 +27,13 @@ const bibRefList = document.getElementById("bibliographyReferenceList");
 
 // Create extra contributor input field and label
 const contributors = [];
-const newContributors = contributors.map((item) => item * 2);
 
 function addContributor() {
   const newDiv = document.createElement("div");
   const firstInput = document.createElement("input");
   const lastInput = document.createElement("input");
+  firstInput.setAttribute("id", "firstInput");
+  lastInput.setAttribute("id", "lastInput");
   newDiv.classList.add("gap-x-2", "flex", "gap-y-2");
   firstInput.classList.add(
     "border",
@@ -55,7 +60,6 @@ function addContributor() {
   newDiv.appendChild(lastInput);
   firstInput.placeholder = "First Name(s):";
   lastInput.placeholder = "Last Name:";
-  return labelSection;
 }
 
 // Add contributor buttons and labels
@@ -63,10 +67,8 @@ contributeButton.addEventListener("click", () => {
   addContributor();
 });
 
-// Clear Forms
-function clearForm() {}
-
 // Get, format, and print values of fields into a bib. reference
+
 function printBibRef() {
   const citationComponents = [];
   citationComponents.push("(");
@@ -79,20 +81,21 @@ function printBibRef() {
     citationComponents.push(`${firstName.value[0]}. `);
   }
 
-  // contributors add to array
-
-  /* if (lastInput.value) {
-    contributors.push(`${lastInput.value}`);
-  }
-  if (firstInput.value) {
+  const firstInput = document.getElementById("firstInput");
+  const lastInput = document.getElementById("lastInput");
+  if (firstInput && lastInput) {
+    contributors.push(`and ${lastInput.value}, `);
     contributors.push(`${firstInput.value[0]}.`);
   }
+  const con = contributors.join("");
 
-  citationComponents.push(contributors);
+  if (contributors) {
+    citationComponents.push(con);
+  }
 
-  */
-
-  if (year.value) {
+  if (year.value == "") {
+    citationComponents.push(` (n.d.).`);
+  } else if (year.value) {
     citationComponents.push(`(${year.value}). `);
   }
 
@@ -125,10 +128,15 @@ function printTextRef() {
   bibComponents.push("(");
 
   if (lastName.value) {
-    bibComponents.push(`${lastName.value}, `);
+    bibComponents.push(`${lastName.value} `);
   }
 
-  if (year.value) {
+  const lastInput = document.getElementById("lastInput");
+  bibComponents.push(`and ${lastInput.value}. `);
+
+  if (year.value == "") {
+    bibComponents.push(`n.d.`);
+  } else if (year.value) {
     bibComponents.push(`${year.value}`);
   }
 
@@ -142,4 +150,5 @@ function printTextRef() {
 button.addEventListener("click", () => {
   printBibRef();
   printTextRef();
+  console.log(contributors);
 });
