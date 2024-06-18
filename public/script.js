@@ -1,15 +1,13 @@
-// Clear forms
+// 2 and 3 or more contributors
+// Glitch when second field is empty
 // Red asterix on missing info
-// If fields haven't been completed then don't allow submit
 // & for two contributors and commas for more
 // DD MM YYYY Format of Date
 // Format the menu
 // Page Number
 // Automatically order alphabetically
-// combine print functions
 // Auto capital
 // Auto-gap
-// Highlight on hover
 
 // Declare all elements of the DOM as variables
 const form = document.getElementById("form");
@@ -115,11 +113,11 @@ function printRef() {
   }
 
   if (title.value) {
-    citationComponents.push(`${title.value}. [online] `);
+    citationComponents.push(` ${title.value}. [online]`);
   }
 
   if (publisher.value) {
-    citationComponents.push(`${publisher.value}. `);
+    citationComponents.push(` ${publisher.value}. `);
   }
 
   if (url.value) {
@@ -133,20 +131,44 @@ function printRef() {
   citationComponents.push(")");
   bibComponents.push(")");
 
-  const ref = document.createElement("div");
-  ref.classList.add("flex", "justify-between", "my-2", "cursor-pointer");
-  const bRef = document.createElement("p");
-  const tRef = document.createElement("p");
-  const bR = citationComponents.join("");
-  const tR = bibComponents.join("");
-  bRef.innerText = bR;
-  tRef.innerText = tR;
-  list.appendChild(ref);
-  ref.appendChild(bRef);
-  ref.appendChild(tRef);
-  ref.addEventListener("dblclick", () => {
-    list.removeChild(ref);
-  });
+  if (!firstName.value || !lastName.value || !title.value) {
+    alert("Please input more information");
+  } else {
+    const ref = document.createElement("div");
+    ref.classList.add(
+      "flex",
+      "justify-between",
+      "my-2",
+      "py-1",
+      "italic",
+      "cursor-pointer",
+      "hover:bg-slate-100",
+      "transition-all",
+      "rounded-lg"
+    );
+    const bRef = document.createElement("p");
+    const tRef = document.createElement("p");
+    const bR = citationComponents.join("");
+    const tR = bibComponents.join("");
+    bRef.innerText = bR;
+    tRef.innerText = tR;
+    list.appendChild(ref);
+    ref.appendChild(bRef);
+    ref.appendChild(tRef);
+    ref.addEventListener("dblclick", () => {
+      list.removeChild(ref);
+    });
+  }
+  lastName.value = "";
+  firstName.value = "";
+  firstInput.value = "";
+  lastInput.value = "";
+  title.value = "";
+  year.value = "";
+  title.value = "";
+  publisher.value = "";
+  url.value = "";
+  quote.value = "";
 }
 
 button.addEventListener("click", () => {
