@@ -1,14 +1,15 @@
-// Format the array
-// If fields haven't been completed then don't allow submit]
 // Clear forms
+// CRUD
+// Red asterix on missing info
+// If fields haven't been completed then don't allow submit
 // & for two contributors and commas for more
 // DD MM YYYY Format of Date
 // Format the menu
 // Page Number
 // Automatically order alphabetically
-// Red asterix on missing info
 // combine print functions
-// CRUD
+// Auto capital
+// Auto-gap
 
 // Declare all elements of the DOM as variables
 const form = document.getElementById("form");
@@ -22,8 +23,15 @@ const year = document.getElementById("year");
 const publisher = document.getElementById("publisher");
 const quote = document.getElementById("quote");
 const button = document.getElementById("button");
-const textRefList = document.getElementById("inTextReferenceList");
-const bibRefList = document.getElementById("bibliographyReferenceList");
+const list = document.getElementById("list");
+const bibRefList = document.createElement("ul");
+const textRefList = document.createElement("ul");
+const removeDiv = document.createElement("div");
+
+list.appendChild(bibRefList);
+list.appendChild(removeDiv);
+removeDiv.appendChild(textRefList);
+removeDiv.classList.add("flex", "gap-x-2");
 
 // Create extra contributor input field and label
 const contributors = [];
@@ -69,12 +77,15 @@ contributeButton.addEventListener("click", () => {
 
 // Get, format, and print values of fields into a bib. reference
 
-function printBibRef() {
+function printRef() {
   const citationComponents = [];
+  const bibComponents = [];
   citationComponents.push("(");
+  bibComponents.push("(");
 
   if (lastName.value) {
     citationComponents.push(`${lastName.value}, `);
+    bibComponents.push(`${lastName.value}`);
   }
 
   if (firstName.value) {
@@ -86,8 +97,11 @@ function printBibRef() {
   if (firstInput && lastInput) {
     contributors.push(`and ${lastInput.value}, `);
     contributors.push(`${firstInput.value[0]}.`);
+    bibComponents.push(` and ${lastInput.value}`);
   }
-  const con = contributors.join("");
+
+  const con = contributors.join(""); // becomes a string
+  contributors.splice(0, 2);
 
   if (contributors) {
     citationComponents.push(con);
@@ -95,8 +109,10 @@ function printBibRef() {
 
   if (year.value == "") {
     citationComponents.push(` (n.d.).`);
+    bibComponents.push(`, n.d.`);
   } else if (year.value) {
-    citationComponents.push(`(${year.value}). `);
+    citationComponents.push(` (${year.value}). `);
+    bibComponents.push(`${year.value}`);
   }
 
   if (title.value) {
@@ -116,39 +132,18 @@ function printBibRef() {
   }
 
   citationComponents.push(")");
-  const refList = document.createElement("li");
-  const ref = citationComponents.join("");
-  refList.innerHTML = ref;
-  bibRefList.appendChild(refList);
-}
-
-// Get, format, and print values of text references
-function printTextRef() {
-  const bibComponents = [];
-  bibComponents.push("(");
-
-  if (lastName.value) {
-    bibComponents.push(`${lastName.value} `);
-  }
-
-  const lastInput = document.getElementById("lastInput");
-  bibComponents.push(`and ${lastInput.value}. `);
-
-  if (year.value == "") {
-    bibComponents.push(`n.d.`);
-  } else if (year.value) {
-    bibComponents.push(`${year.value}`);
-  }
-
   bibComponents.push(")");
-  const refList = document.createElement("li");
-  const ref = bibComponents.join("");
-  refList.innerHTML = ref;
-  textRefList.appendChild(refList);
+
+  const bRef = document.createElement("li");
+  const tRef = document.createElement("li");
+  const bR = citationComponents.join("");
+  const tR = bibComponents.join("");
+  bRef.innerHTML = bR;
+  tRef.innerHTML = tR;
+  bibRefList.appendChild(bRef);
+  textRefList.appendChild(tRef);
 }
 
 button.addEventListener("click", () => {
-  printBibRef();
-  printTextRef();
-  console.log(contributors);
+  printRef();
 });

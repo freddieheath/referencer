@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="py-10">
-      <div class="text-center py-6">
+      <div class="text-center pb-12">
         <h1 class="text-2xl pb-2">Harvard Referencer</h1>
         <p class="text-md">
           **This referencer only works for online sources with a maximum of two
@@ -67,7 +67,7 @@
             id="publisher"
           />
         </div>
-        <div class="py-6 flex flex-col gap-y-2">
+        <div class="pb-6 flex flex-col gap-y-2">
           <p class="sub_heading">Annotation</p>
           <input
             class="border border-gray-300 text-gray-900 text-sm rounded-lg p-2"
@@ -79,10 +79,10 @@
         <div class="generate_button pb-6">
           <button type="button" id="button">+ Generate Reference</button>
         </div>
-        <div class="flex gap-x-2">
-          <ul id="bibliographyReferenceList"></ul>
-          <ul id="inTextReferenceList"></ul>
+        <div class="pb-2">
+          <h1>Bibliography</h1>
         </div>
+        <div id="list" class="flex justify-between"></div>
       </form>
     </div>
 
