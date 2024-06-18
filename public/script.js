@@ -1,5 +1,4 @@
 // Clear forms
-// CRUD
 // Red asterix on missing info
 // If fields haven't been completed then don't allow submit
 // & for two contributors and commas for more
@@ -10,6 +9,7 @@
 // combine print functions
 // Auto capital
 // Auto-gap
+// Highlight on hover
 
 // Declare all elements of the DOM as variables
 const form = document.getElementById("form");
@@ -26,12 +26,11 @@ const button = document.getElementById("button");
 const list = document.getElementById("list");
 const bibRefList = document.createElement("ul");
 const textRefList = document.createElement("ul");
-const removeDiv = document.createElement("div");
 
 list.appendChild(bibRefList);
-list.appendChild(removeDiv);
-removeDiv.appendChild(textRefList);
-removeDiv.classList.add("flex", "gap-x-2");
+list.appendChild(textRefList);
+bibRefList.classList.add("list-none");
+textRefList.classList.add("list-none");
 
 // Create extra contributor input field and label
 const contributors = [];
@@ -75,7 +74,7 @@ contributeButton.addEventListener("click", () => {
   addContributor();
 });
 
-// Get, format, and print values of fields into a bib. reference
+// Get, format, and print values of fields into references
 
 function printRef() {
   const citationComponents = [];
@@ -134,14 +133,20 @@ function printRef() {
   citationComponents.push(")");
   bibComponents.push(")");
 
-  const bRef = document.createElement("li");
-  const tRef = document.createElement("li");
+  const ref = document.createElement("div");
+  ref.classList.add("flex", "justify-between", "my-2", "cursor-pointer");
+  const bRef = document.createElement("p");
+  const tRef = document.createElement("p");
   const bR = citationComponents.join("");
   const tR = bibComponents.join("");
-  bRef.innerHTML = bR;
-  tRef.innerHTML = tR;
-  bibRefList.appendChild(bRef);
-  textRefList.appendChild(tRef);
+  bRef.innerText = bR;
+  tRef.innerText = tR;
+  list.appendChild(ref);
+  ref.appendChild(bRef);
+  ref.appendChild(tRef);
+  ref.addEventListener("dblclick", () => {
+    list.removeChild(ref);
+  });
 }
 
 button.addEventListener("click", () => {
